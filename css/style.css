@@ -4,9 +4,9 @@
   --accent:#B7791F;--accent-ink:#85540C;--on-accent:#FFFFFF;
   --wands:#B8431F;--cups:#1F6A9C;--swords:#5E5A8C;--pent:#3F7A33;--major:#A8680B;
   --good:#2F7A3B;--warn:#9A6A00;--bad:#B3341F;--mark:#F7DE9A;--shadow:0 6px 24px rgba(38,24,58,.12);
-  --f-display:'Marcellus','Cormorant Garamond',Georgia,serif;
-  --f-body:'Source Serif 4',Georgia,'Times New Roman',serif;
-  --f-ui:'Instrument Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --f-display:'Marcellus','Noto Serif Bengali','Cormorant Garamond',Georgia,serif;
+  --f-body:'Source Serif 4','Noto Serif Bengali',Georgia,'Times New Roman',serif;
+  --f-ui:'Instrument Sans','Noto Sans Bengali',system-ui,-apple-system,'Segoe UI',sans-serif;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --bg:#151021;--surface:#1E1730;--surface2:#2A2140;--ink:#EEE8F7;--muted:#A79DBD;--line:#3A2F55;
@@ -173,3 +173,10 @@ select{border:1px solid var(--line);background:var(--surface);color:var(--ink);b
 .cf.pic.back>*{display:block}.cf.pic.back::after{display:none}
 .slot .pk{aspect-ratio:300/527}
 .zoom{background:none;border:0;padding:0;cursor:zoom-in;border-radius:6px}.zoom:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+/* Assamese */
+html[lang=as] body{line-height:1.7}
+html[lang=as] h1,html[lang=as] h2,html[lang=as] h3{line-height:1.4;font-weight:600}
+html[lang=as] .brand{letter-spacing:0}
+.langbtn{width:auto;min-width:36px;padding:0 10px;font-size:13px;font-weight:600}
+.en-name{font-family:var(--f-display);letter-spacing:.02em;margin-top:2px}
