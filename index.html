@@ -1,20 +1,26 @@
 <!doctype html>
-<html lang="en">
+<html lang="as">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Tarot Reader's Desk</title>
+<title>টাৰো পাঠকৰ ডেস্ক</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Marcellus&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Marcellus&family=Noto+Sans+Bengali:wght@400;500;600;700&family=Noto+Serif+Bengali:wght@400;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 <header class="top"><div class="top-in">
-  <a class="brand" href="#cards"><svg viewBox="0 0 48 48"><path d="M24 4l4 16 16 4-16 4-4 16-4-16-16-4 16-4z"/></svg>Tarot Reader's Desk</a>
-  <nav class="tabs" id="tabs" aria-label="Sections"></nav>
+  <a class="brand" href="#cards"><svg viewBox="0 0 48 48"><path d="M24 4l4 16 16 4-16 4-4 16-4-16-16-4 16-4z"/></svg><span id="brandtxt">টাৰো পাঠকৰ ডেস্ক</span></a>
+  <nav class="tabs" id="tabs" aria-label="বিভাগ"></nav>
+  <button class="iconbtn langbtn" id="langbtn" type="button" aria-label="Switch to English" title="Switch to English">EN</button>
   <button class="iconbtn" id="themebtn" aria-label="Switch light or dark theme" title="Theme"><svg viewBox="0 0 24 24"><path d="M21 13A9 9 0 1111 3a7 7 0 0010 10z"/></svg></button>
 </div></header>
 <main class="wrap page" id="app" aria-live="polite"></main>
+<script src="js/as-terms.js"></script>
+<script src="js/as-ui.js"></script>
+<script src="js/as-extra.js"></script>
+<script src="js/as-data.js"></script>
+<script src="js/i18n.js"></script>
 <script src="data/cards.js"></script>
 <script src="data/library.js"></script>
 <script src="data/reference.js"></script>
