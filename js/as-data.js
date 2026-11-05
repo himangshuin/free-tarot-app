@@ -1,0 +1,28 @@
+/* Assamese dictionary, part 4: book chapter titles, section headings, symbols, burnout lists. */
+(function(){
+var A=window.TAROT_AS,P=A.P,PAT=A.PAT;
+function add(o){for(var k in o)P[k]=o[k]}
+add({
+"Vol I · Front matter, authors & contents":"খণ্ড I · মুখবন্ধ, লেখক আৰু সূচীপত্ৰ","Vol II · Front matter, authors & contents":"খণ্ড II · মুখবন্ধ, লেখক আৰু সূচীপত্ৰ",
+"Introduction to the Realm of Tarot":"টাৰোৰ জগতলৈ পৰিচয়","History of the Tradition of Tarot Card Reading":"টাৰো কাৰ্ড পঢ়াৰ পৰম্পৰাৰ ইতিহাস","Symbols in Tarot Cards":"টাৰো কাৰ্ডৰ প্ৰতীক","The Tarot Deck – Structure":"টাৰো ডেক – গঠন",
+"Preparing Your Deck for a Tarot Reading":"টাৰো ৰীডিঙৰ বাবে আপোনাৰ ডেক প্ৰস্তুত কৰা","Performing & Giving the Reading":"ৰীডিং কৰা আৰু দিয়া","Popular Tarot Spreads":"জনপ্ৰিয় টাৰো স্প্ৰেড","Major Arcana – The Fool’s Journey & Ready Reckoner":"মেজৰ আৰ্কানা – মূৰ্খৰ যাত্ৰা আৰু ৰেডী ৰেকনাৰ",
+"Minor Arcana – Suits & Elements":"মাইনৰ আৰ্কানা – সূট আৰু তত্ত্ব","Additional Attributes (Numbers, Court Cards, Mistakes, Last Words)":"অতিৰিক্ত বৈশিষ্ট্য (সংখ্যা, কোৰ্ট কাৰ্ড, ভুল, শেষ কথা)",
+"Tarot as a Psychological GPS":"মনস্তাত্ত্বিক GPS হিচাপে টাৰো","Tarot Reversal: Reversed Cards in a Spread":"টাৰো ৰিভাৰ্ছেল: স্প্ৰেডত উলটা কাৰ্ড","The 78 Cards (Reversed) – introduction":"৭৮খন কাৰ্ড (উলটা) – পৰিচয়","Directionality in the Cards":"কাৰ্ডৰ দিশনিৰ্দেশ",
+"Astrological Association of Tarot":"টাৰোৰ জ্যোতিষীয় সংযোগ","Astrological Connotations of the 22 Major Arcana":"২২খন মেজৰ আৰ্কানাৰ জ্যোতিষীয় তাৎপৰ্য","Kaal Purush Kundali: 12 Houses & Cards":"কালপুৰুষ কুণ্ডলী: ১২ ভাব আৰু কাৰ্ড","Numerology Associations of Tarot":"টাৰোৰ সংখ্যাতাত্ত্বিক সংযোগ",
+"Quintessential Number & Quintessential Card":"সাৰসংখ্যা আৰু সাৰ কাৰ্ড","Muhurta Fixation by Numerological Tarot":"সংখ্যাতাত্ত্বিক টাৰোৰে মুহূৰ্ত নিৰ্ধাৰণ","Remedies: Gems & Crystals":"প্ৰতিকাৰ: ৰত্ন আৰু স্ফটিক","Mantras as Remedy":"প্ৰতিকাৰ হিচাপে মন্ত্ৰ","Gomti Chakra as Remedy":"প্ৰতিকাৰ হিচাপে গোমতী চক্ৰ",
+"Kaballah (Qabalah) & Tarot":"কাব্বালাহ আৰু টাৰো","The 7 Chakras, Chakra Spread & Healing Grid":"৭টা চক্ৰ, চক্ৰ স্প্ৰেড আৰু নিৰাময় গ্ৰিড","Tarot Exhaustion / Burn Out":"টাৰো ক্লান্তি / বাৰ্নআউট","Meditation as Remedy":"প্ৰতিকাৰ হিচাপে ধ্যান","Yantras as Remedy":"প্ৰতিকাৰ হিচাপে যন্ত্ৰ","Rudraksha as Remedy":"প্ৰতিকাৰ হিচাপে ৰুদ্ৰাক্ষ",
+"Angelic World & Tarot":"স্বৰ্গীয় জগত আৰু টাৰো","Transcendental Knowledge":"অতীন্দ্ৰিয় জ্ঞান",
+/* Fool's Journey headings */
+"Masculine and Feminine":"পুৰুষ আৰু নাৰী শক্তি","Mother, Father, Teacher":"মাতৃ, পিতৃ, গুৰু","Skills for living":"জীৱনৰ দক্ষতা","Inner voice":"অন্তৰৰ মাত","Karmic path":"কৰ্মৰ পথ","Growth and change":"বৃদ্ধি আৰু পৰিৱৰ্তন","Tests and challenges":"পৰীক্ষা আৰু প্ৰত্যাহ্বান","Transformative possibilities":"ৰূপান্তৰৰ সম্ভাৱনা","Integration":"একীকৰণ",
+/* guide steps */
+"Deck: size and choice":"ডেক: আকাৰ আৰু বাছনি","Store the deck with respect":"ডেকটো শ্ৰদ্ধাৰে সংৰক্ষণ কৰক","Cleanse and energise the deck":"ডেক শুদ্ধ আৰু শক্তিশালী কৰক","Set the ambience":"পৰিৱেশ সজাওক","Ground, tune in, shield":"গ্ৰাউণ্ড, সংযোগ আৰু সুৰক্ষা","Put the querist at ease":"প্ৰশ্নকৰ্তাক আৰামদায়ক কৰক","Ask the right question":"সঠিক প্ৰশ্ন সোধক",
+"Choose the spread":"স্প্ৰেড বাছক","Create your own spread":"নিজৰ স্প্ৰেড বনাওক","Pop-out cards":"ওলাই অহা কাৰ্ড","Lay out the cards":"কাৰ্ডবোৰ সজাওক","Reversed cards":"উলটা কাৰ্ড","While reading":"পঢ়ি থাকোঁতে","Cleanse and ground yourself":"নিজকে শুদ্ধ আৰু গ্ৰাউণ্ড কৰক","White light through the chakras":"চক্ৰৰ মাজেদি বগা পোহৰ","Clear the room":"কোঠাটো পৰিষ্কাৰ কৰক","Protect and give thanks":"সুৰক্ষা আৰু ধন্যবাদ",
+/* symbols */
+"Angel":"স্বৰ্গদূত","Ankh":"আংখ","Arch":"তোৰণ","Bird":"চৰাই","Boat":"নাও","Brick Wall":"ইটাৰ বেৰ","Bridge":"দলং","Bull":"ষাঁড়","Butterfly":"প্ৰজাপতি","Caduceus":"কেডুচিয়াছ","Castle":"দুৰ্গ","Chain":"শিকলি","Children":"শিশু","Flower":"ফুল","Mountain":"পৰ্বত","Rose":"গোলাপ","Sphinx":"স্ফিংক্স","Staff":"লাখুটি","Wreath":"মালা",
+/* burnout lists */
+"Several readings in a short span without time to clear the previous energies":"পূৰ্বৰ শক্তি পৰিষ্কাৰ কৰাৰ সময় নোহোৱাকৈ অলপ সময়ৰ ভিতৰত কেইবাটাও ৰীডিং","Intense readings charged with emotion":"আৱেগেৰে ভৰা তীব্ৰ ৰীডিং","Issues of anger, resentment, revenge or self esteem that test your own psyche while counselling":"পৰামৰ্শ দিওঁতে আপোনাৰ নিজৰ মনক পৰীক্ষা কৰা ক্ৰোধ, ক্ষোভ, প্ৰতিশোধ বা আত্মসন্মানৰ বিষয়","Not trained in, or forgetting, grounding before the reading":"ৰীডিঙৰ আগতে গ্ৰাউণ্ডিঙৰ প্ৰশিক্ষণ নথকা বা পাহৰি যোৱা","The querist is a friend or family member and energy chords become entangled with yours":"প্ৰশ্নকৰ্তা বন্ধু বা পৰিয়ালৰ সদস্য আৰু শক্তিৰ ডোলবোৰ আপোনাৰ সৈতে জড়িত হৈ পৰে",
+"Lethargy and tiredness in body":"শৰীৰত অলসতা আৰু ক্লান্তি","Severe and lingering headache":"তীব্ৰ আৰু দীঘলীয়া মূৰৰ বিষ","Heaviness in the heart area":"হৃদয় অঞ্চলত ভাৰী অনুভৱ","Brooding sense of sadness":"গভীৰ দুখৰ অনুভৱ","Apathy towards own life matters":"নিজৰ জীৱনৰ বিষয়ত উদাসীনতা","Keenness to lie down and just sleep":"কেৱল শুই থাকিবলৈ ইচ্ছা","Unexpected anger spurting inside":"ভিতৰত হঠাতে ক্ৰোধ উথলি উঠা","Occasional bout of tears":"মাজে মাজে কান্দোনৰ আৱেগ","Verbal outbursts":"মুখেৰে বিস্ফোৰণ","No interest in further Tarot or other readings, extending up to several days":"আৰু টাৰো বা অন্য ৰীডিঙত আগ্ৰহ নথকা, কেইবাদিনলৈকে","Poor concentration":"একাগ্ৰতাৰ অভাৱ","Desire to be silent and retreat into shell":"নীৰৱ হৈ থাকি নিজৰ খোলাৰ ভিতৰলৈ সোমাই যাবলৈ ইচ্ছা","Inability to meditate or do regular sacred rituals":"ধ্যান বা নিয়মীয়া পবিত্ৰ অনুষ্ঠান কৰিব নোৱাৰা",
+" Draw from the 16 court cards only (as for matchmaking)":"কেৱল ১৬খন কোৰ্ট কাৰ্ডৰ পৰা উলিয়াওক (বৰ-কইনা মিলনৰ দৰে)"
+});
+PAT.push([/^(\d+)\. (.{2,100})$/,function(m,t){var b=t(m[2]);return b===m[2]?null:m[1]+'. '+b}]);
+})();

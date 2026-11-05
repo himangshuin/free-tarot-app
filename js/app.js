@@ -1,13 +1,14 @@
 (function(){
 'use strict';
 const D=window.TAROT;
+const T=window.I18N.T;
 const CARDS=D.cards, LIB=D.library, BYID={}; CARDS.forEach((c,i)=>{c.i=i;BYID[c.id]=c});
 const IMGDIR='images/cards/';
 const $=(s,r)=>(r||document).querySelector(s);
 function h(tag,attrs,...kids){const e=tag==='svg'?document.createElementNS('http://www.w3.org/2000/svg','svg'):document.createElement(tag);
   if(attrs)for(const k in attrs){const v=attrs[k];if(v==null||v===false)continue;
-    if(k==='class')e.className=v;else if(k.startsWith('on'))e.addEventListener(k.slice(2),v);else if(k==='html')e.innerHTML=v;else e.setAttribute(k,v===true?'':v)}
-  kids.flat(9).forEach(k=>{if(k==null||k===false)return;e.append(k.nodeType?k:document.createTextNode(k))});return e}
+    if(k==='class')e.className=v;else if(k.startsWith('on'))e.addEventListener(k.slice(2),v);else if(k==='html')e.innerHTML=v;else e.setAttribute(k,v===true?'':(k==='placeholder'||k==='title'||k==='aria-label'||k==='alt')?T(String(v)):v)}
+  kids.flat(9).forEach(k=>{if(k==null||k===false)return;e.append(k.nodeType?k:document.createTextNode(typeof k==='string'?T(k):k))});return e}
 const store={get(k,d){try{const v=localStorage.getItem('tarot.'+k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem('tarot.'+k,JSON.stringify(v))}catch(e){}}};
 let favs=new Set(store.get('fav',[]));
 let saved=store.get('readings',[]);
@@ -49,8 +50,8 @@ const TOPICS={Love:['love','romance','relationship','marriage','married','partne
 const IDX=CARDS.map(c=>{const m=c.meta||{};
   const meta=[c.suit,c.arcana,c.rank,m.Archetype,m.Task,m.Element,m['Crystal Guidance'],m['Color Guidance'],m.Planets,m['Astrological Significance'],m['Favourable Color'],m['Chakra Associated'],(c.keywords||[]).join(' '),c.crystals,c.gems,c.rating,
     c.astro&&[c.astro.zodiac,c.astro.planet,c.astro.houseName].join(' ')].join(' ');
-  return {name:norm(c.name+' '+c.num+(c.arcana==='major'?' '+ROM[c.num]:'')+' '+(c.rank?c.rank+' '+c.suit:'')),meta:norm(meta),up:norm(paraText(c.body)),rev:norm(paraText(c.reversed))}});
-function tokens(q){return norm(q).replace(/["“”]/g,'').split(/\s+/).filter(Boolean)}
+  return {name:norm(c.name+' '+window.I18N.name(c)+' '+c.num+(c.arcana==='major'?' '+ROM[c.num]:'')+' '+(c.rank?c.rank+' '+c.suit:'')),meta:norm(meta),up:norm(paraText(c.body)),rev:norm(paraText(c.reversed))}});
+function tokens(q){return norm(window.I18N.toEn(q)).replace(/["“”]/g,'').split(/\s+/).filter(Boolean)}
 function snippet(text,toks,len){const l=norm(text);let at=-1;for(const t of toks){const k=l.indexOf(t);if(k>=0&&(at<0||k<at))at=k}
   if(at<0)return null;const s=Math.max(0,at-len/3);let sn=text.slice(s,s+len);if(s>0)sn='…'+sn.replace(/^\S*\s/,'');if(s+len<text.length)sn=sn.replace(/\s\S*$/,'')+'…';return sn}
 function hl(text,toks){if(!toks||!toks.length)return document.createTextNode(text);
@@ -83,9 +84,9 @@ function detail(c,o){o=o||{};let mode=o.rev?'reversed':'upright',topic=null;cons
     else{add('Element',m.Element);add('Planets',m.Planets);add('Astrology',m['Astrological Significance']);add('Favourable colour',m['Favourable Color']);add('Chakra',m['Chakra Associated'])}
     const isFav=favs.has(c.id);
     root.append(
-      o.crumb||null,
+      ...(o.crumb?[o.crumb]:[]),
       h('div',{class:'dh'},h('button',{class:'zoom',title:'Enlarge the card','aria-label':'Enlarge '+c.name,onclick:()=>openModal(h('div',{style:'text-align:center;padding:6px'},face(c,{w:Math.min(320,innerWidth-80),rev:mode==='reversed'}),h('h3',{style:'margin-top:10px'},c.name))) },face(c,{w:o.modal?100:140,rev:o.rev&&mode==='reversed'})),
-        h('div',{class:'ti'},h('h1',null,c.name),
+        h('div',{class:'ti'},h('h1',null,c.name),window.I18N.lang==='as'?h('div',{class:'small muted en-name',lang:'en'},document.createTextNode(c.name)):null,
           h('div',{class:'muted'},c.arcana==='major'?'Major Arcana · Card '+c.num+(c.num?' ('+ROM[c.num]+')':''):c.suit+' · '+c.rank+' (value '+c.num+')'),
           toneEl(c),
           h('div',{class:'ctl'},
@@ -199,6 +200,7 @@ const SP=[
 {id:'monthly',name:'13-Card Monthly Forecast',layout:'ring',monthly:true,intro:'One card per month for a year, plus a 13th Significator drawn at the end for the overall trend. Draw supplementary cards for months the querent wants studied in depth.',pos:MONTHS.map(m=>[m,'Message for the month']).concat([['Year overall (Significator)','Overall trend of the year']])},
 {id:'chakra',name:'7-Chakra',layout:'col',intro:'Seven cards, one per chakra, read from crown to root. Read each card as the state of that energy centre. Chapter 15 of Vol II covers chakras, crystals and the healing grid.',pos:[['Crown · Sahasrara',''],['Third eye · Ajna',''],['Throat · Vishuddha',''],['Heart · Anahata',''],['Solar plexus · Manipura',''],['Sacral · Svadhisthana',''],['Root · Muladhara','']]}
 ];
+function firstSent(x){const t=T(x);const i=t.search(/(?:[।.])\s/);const f=(i>0?t.slice(0,i):t).replace(/[।.]+$/,'');return f+(window.I18N.lang==='as'?'।':'.')}
 function rnd(n){const a=new Uint32Array(1);crypto.getRandomValues(a);return a[0]%n}
 function cardVal(c){return c.num}
 function reduce1to9(n){while(n>9)n=String(n).split('').reduce((a,b)=>a+ +b,0);return n}
@@ -207,7 +209,7 @@ function quint(cards){const tot=cards.reduce((a,c)=>a+cardVal(c),0);let q=tot;wh
   const qc=q===22?CARDS[0]:CARDS[q];return {tot,n:reduce1to9(tot),card:qc,q22:q===22}}
 function viewSpreads(id){const sp=id==='custom'?customSP:SP.find(s=>s.id===id);if(id==='custom'&&!customSP)return customForm();if(!sp){document.title='Spreads · Tarot Reader\'s Desk';
   app.replaceChildren(h('h1',null,'Spreads'),h('p',{class:'lead'},SP.length+' layouts from the two books, plus a builder for your own. Draw cards at random, or lay out your own physical deck and pick each card by name.'),
-   h('div',{class:'spgrid'},SP.map(s=>h('a',{class:'spcard',href:'#spread-'+s.id},h('b',null,s.name),h('span',{class:'small muted'},s.id==='custom'?'Any number of cards':s.pos.length+(s.pos.length===1?' card':' cards')),h('span',{class:'small'},s.intro.split('. ')[0]+'.')))),
+   h('div',{class:'spgrid'},SP.map(s=>h('a',{class:'spcard',href:'#spread-'+s.id},h('b',null,s.name),h('span',{class:'small muted'},s.id==='custom'?'Any number of cards':s.pos.length+(s.pos.length===1?' card':' cards')),h('span',{class:'small'},firstSent(s.intro))))),
    h('p',{class:'small muted'},'Full spread descriptions: ',h('a',{href:'#lib-v1-c7'},'Vol I, Chapter 7'),' and ',h('a',{href:'#lib-v2-c7'},'Vol II, Chapter 7'),'.'));return}
   document.title=sp.name+' · Tarot Reader\'s Desk';
   const slots=sp.pos.map(()=>null);let reversals=true,revealed=sp.pos.map(()=>false);
@@ -220,7 +222,7 @@ function viewSpreads(id){const sp=id==='custom'?customSP:SP.find(s=>s.id===id);i
     const el=h('div',{class:'slot',style:sp.layout==='celtic'?'grid-area:'+(i<6?['p1','p2','p3','p4','p5','p6'][i]:'s'+(i+1)):null});
     const face_=s?face(s.c,{rev:s.rev&&revealed[i],back:!revealed[i]}):h('div',{class:'pk'},'empty');
     const btn=h('button',{class:'slot',style:'width:auto',title:p[1]||p[0],onclick:()=>{if(!s)return drawOne(i);if(!revealed[i]){revealed[i]=true;render()}else openModal(detail(s.c,{rev:s.rev,modal:true,toks:[]}))},'aria-label':p[0]+(s?(revealed[i]?': '+s.c.name+(s.rev?' reversed':''):': face down, tap to reveal'):': empty, tap to draw')},face_);
-    const ring=sp.layout==='ring';const lab=ring?(sp.monthly?(i<12?MONTHS[i].slice(0,3):'Year'):(i+1)+' '+D.houses[i].zodiac.slice(0,3)):p[0];
+    const ring=sp.layout==='ring';const lab=ring?(sp.monthly?(i<12?MONTHS[i].slice(0,3):'Year'):(i+1)+' '+(window.I18N.lang==='as'?T(D.houses[i].zodiac):D.houses[i].zodiac.slice(0,3))):p[0];
     el.append(...[btn,h('span',{class:'pn',title:p[0]},lab),s&&revealed[i]&&!ring?h('span',{class:'cn'},s.c.name,s.rev?h('span',{class:'revtag'},' REVERSED'):null):null].filter(Boolean));
     if(sp.layout==='celtic'&&i===1){el.style.cssText='grid-area:p1;transform:rotate(90deg);z-index:2;margin:auto;pointer-events:none;opacity:.96';btn.style.pointerEvents='auto';el.querySelector('.pn').style.display='none';
       const wrap=h('div',{style:'display:contents'});}
@@ -360,7 +362,7 @@ function viewTools(sub){sub=sub||'year';document.title='Tools · Tarot Reader\'s
   if(sub==='year'||sub==='quint'){const [a,b]=numPanels();body=sub==='year'?a:b}
   else if(sub==='muhurta'){
     const today=new Date().toISOString().slice(0,10);const dis=[h('input',{type:'date',value:today,'aria-label':'Date option 1'})];const lst=h('div',{class:'ctl',style:'margin:10px 0'});const out=h('div');let pool=shuffled();
-    function drawIn(){lst.replaceChildren(...dis,dis.length<5?h('button',{class:'btn sm',onclick:()=>{dis.push(h('input',{type:'date',value:today,'aria-label':'Date option '+(dis.length+1),oninput:go}));drawIn();go()}},'Add another date'):null,dis.length>1?h('button',{class:'btn sm',onclick:()=>{dis.pop();drawIn();go()}},'Remove last'):null,h('button',{class:'btn',onclick:()=>{pool=shuffled();go()}},'Shuffle again'))}
+    function drawIn(){lst.replaceChildren(...[...dis,dis.length<5?h('button',{class:'btn sm',onclick:()=>{dis.push(h('input',{type:'date',value:today,'aria-label':'Date option '+(dis.length+1),oninput:go}));drawIn();go()}},'Add another date'):null,dis.length>1?h('button',{class:'btn sm',onclick:()=>{dis.pop();drawIn();go()}},'Remove last'):null,h('button',{class:'btn',onclick:()=>{pool=shuffled();go()}},'Shuffle again')].filter(Boolean))}
     function go(){out.replaceChildren();const rows=[];dis.forEach((di,k)=>{if(!di.value)return;const [Y,m,d]=di.value.split('-').map(Number);const tot=d+m+dsum(Y);const n=reduce1to9(tot);let kk=tot;while(kk>22)kk-=22;const maj=kk===22?CARDS[0]:CARDS[kk];rows.push({k,di,Y,m,d,tot,n,maj,kk,deck:pool[n-1]})});
       if(!rows.length)return;
       out.append(h('div',{class:'tw'},h('table',{class:'tbl'},h('thead',null,h('tr',null,['Option','Date','Total','Number','Deck method: card at that number','Major Arcana method'].map(x=>h('th',null,x)))),h('tbody',null,rows.map(r=>h('tr',null,h('td',null,r.k+1),h('td',null,r.d+' '+MONTHS[r.m-1]+' '+r.Y),h('td',{class:'small'},r.d+' + '+r.m+' + '+dsum(r.Y)+' = '+r.tot),h('td',null,h('b',null,r.n)),h('td',null,h('a',{href:'#card-'+r.deck.id},r.deck.name),h('div',{class:'small muted'},'Card '+r.n+' from the top')),h('td',null,h('a',{href:'#card-'+r.maj.id},r.maj.name),h('div',{class:'small muted'},'No. '+r.kk+(r.tot>22?' ('+r.tot+' less 22)':'')+(r.kk===22?', the Fool as 22':'')))))))),
@@ -563,7 +565,10 @@ function route(){closeModal();const hsh=location.hash.slice(1);let tab='cards';
   else if(hsh==='library'){tab='library';viewLibrary()}
   else if(hsh==='saved'){tab='saved';viewSaved()}
   else viewCards();
-  setTabs(tab)}
+  setTabs(tab);document.title=T(document.title);chrome()}
+function chrome(){const I=window.I18N;const b=$('#langbtn');if(b){b.textContent=I.lang==='as'?'EN':'অসমীয়া';b.setAttribute('aria-label',I.lang==='as'?'Switch to English':'অসমীয়ালৈ সলনি কৰক');b.title=b.getAttribute('aria-label');b.lang=I.lang==='as'?'en':'as'}
+  const br=$('#brandtxt');if(br)br.textContent=T("Tarot Reader's Desk");const tb2=$('#themebtn');if(tb2){tb2.setAttribute('aria-label',T('Switch light or dark theme'));tb2.title=T('Theme')}}
+const lb=$('#langbtn');if(lb)lb.addEventListener('click',()=>{window.I18N.setLang(window.I18N.lang==='as'?'en':'as');route()});
 window.addEventListener('hashchange',route);
 const tb=$('#themebtn');tb.addEventListener('click',()=>{const r=document.documentElement;const dark=r.dataset.theme?r.dataset.theme==='dark':matchMedia('(prefers-color-scheme:dark)').matches;r.dataset.theme=dark?'light':'dark';store.set('theme',r.dataset.theme)});
 const th=store.get('theme',null);if(th)document.documentElement.dataset.theme=th;
