@@ -180,3 +180,10 @@ html[lang=as] h1,html[lang=as] h2,html[lang=as] h3{line-height:1.4;font-weight:6
 html[lang=as] .brand{letter-spacing:0}
 .langbtn{width:auto;min-width:36px;padding:0 10px;font-size:13px;font-weight:600}
 .en-name{font-family:var(--f-display);letter-spacing:.02em;margin-top:2px}
+
+/* hide Google Translate's own bar and highlights */
+body{top:0!important}
+.skiptranslate iframe,iframe.skiptranslate,.goog-te-banner-frame,#goog-gt-tt,.goog-te-balloon-frame,.VIpgJd-ZVi9od-aZ2wEe-wOHMyf,.VIpgJd-ZVi9od-ORHb-OEVmcd{display:none!important}
+.goog-text-highlight{background:none!important;box-shadow:none!important}
+font[style]{background:none!important}
+[hidden]{display:none!important}
