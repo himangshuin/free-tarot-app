@@ -86,7 +86,7 @@ function detail(c,o){o=o||{};let mode=o.rev?'reversed':'upright',topic=null;cons
     root.append(
       ...(o.crumb?[o.crumb]:[]),
       h('div',{class:'dh'},h('button',{class:'zoom',title:'Enlarge the card','aria-label':'Enlarge '+c.name,onclick:()=>openModal(h('div',{style:'text-align:center;padding:6px'},face(c,{w:Math.min(320,innerWidth-80),rev:mode==='reversed'}),h('h3',{style:'margin-top:10px'},c.name))) },face(c,{w:o.modal?100:140,rev:o.rev&&mode==='reversed'})),
-        h('div',{class:'ti'},h('h1',null,c.name),window.I18N.lang==='as'?h('div',{class:'small muted en-name',lang:'en'},document.createTextNode(c.name)):null,
+        h('div',{class:'ti'},h('h1',null,c.name),window.I18N.lang==='as'?h('div',{class:'small muted en-name notranslate',lang:'en',translate:'no'},document.createTextNode(c.name)):null,
           h('div',{class:'muted'},c.arcana==='major'?'Major Arcana · Card '+c.num+(c.num?' ('+ROM[c.num]+')':''):c.suit+' · '+c.rank+' (value '+c.num+')'),
           toneEl(c),
           h('div',{class:'ctl'},
@@ -567,8 +567,12 @@ function route(){closeModal();const hsh=location.hash.slice(1);let tab='cards';
   else viewCards();
   setTabs(tab);document.title=T(document.title);chrome()}
 function chrome(){const I=window.I18N;const b=$('#langbtn');if(b){b.textContent=I.lang==='as'?'EN':'অসমীয়া';b.setAttribute('aria-label',I.lang==='as'?'Switch to English':'অসমীয়ালৈ সলনি কৰক');b.title=b.getAttribute('aria-label');b.lang=I.lang==='as'?'en':'as'}
+  const mb=$('#mtbtn');if(mb&&window.TarotMT){mb.hidden=I.lang!=='as';window.TarotMT.onstatus=st=>{mb.textContent=!window.TarotMT.on?'অনুবাদ: অফ':st==='busy'?'অনুবাদ চলি আছে…':st==='error'?'অনুবাদ: সংযোগ নাই':'অনুবাদ: অন'};mb.textContent=window.TarotMT.on?'অনুবাদ: অন':'অনুবাদ: অফ';mb.title='ইংৰাজী কিতাপৰ লিখনীৰ স্বয়ংক্ৰিয় অসমীয়া অনুবাদ';mb.setAttribute('aria-label',mb.title)}
+  if(I.lang==='as'&&window.TarotMT)window.TarotMT.start();
   const br=$('#brandtxt');if(br)br.textContent=T("Tarot Reader's Desk");const tb2=$('#themebtn');if(tb2){tb2.setAttribute('aria-label',T('Switch light or dark theme'));tb2.title=T('Theme')}}
-const lb=$('#langbtn');if(lb)lb.addEventListener('click',()=>{window.I18N.setLang(window.I18N.lang==='as'?'en':'as');route()});
+const lb=$('#langbtn');if(lb)lb.addEventListener('click',()=>{const toEn=window.I18N.lang==='as';window.I18N.setLang(toEn?'en':'as');
+  if(toEn&&window.TarotMT&&window.TarotMT.stop()){location.reload();return}route()});
+const mbt=$('#mtbtn');if(mbt)mbt.addEventListener('click',()=>window.TarotMT.toggle());
 window.addEventListener('hashchange',route);
 const tb=$('#themebtn');tb.addEventListener('click',()=>{const r=document.documentElement;const dark=r.dataset.theme?r.dataset.theme==='dark':matchMedia('(prefers-color-scheme:dark)').matches;r.dataset.theme=dark?'light':'dark';store.set('theme',r.dataset.theme)});
 const th=store.get('theme',null);if(th)document.documentElement.dataset.theme=th;

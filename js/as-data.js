@@ -24,5 +24,7 @@ add({
 "Lethargy and tiredness in body":"শৰীৰত অলসতা আৰু ক্লান্তি","Severe and lingering headache":"তীব্ৰ আৰু দীঘলীয়া মূৰৰ বিষ","Heaviness in the heart area":"হৃদয় অঞ্চলত ভাৰী অনুভৱ","Brooding sense of sadness":"গভীৰ দুখৰ অনুভৱ","Apathy towards own life matters":"নিজৰ জীৱনৰ বিষয়ত উদাসীনতা","Keenness to lie down and just sleep":"কেৱল শুই থাকিবলৈ ইচ্ছা","Unexpected anger spurting inside":"ভিতৰত হঠাতে ক্ৰোধ উথলি উঠা","Occasional bout of tears":"মাজে মাজে কান্দোনৰ আৱেগ","Verbal outbursts":"মুখেৰে বিস্ফোৰণ","No interest in further Tarot or other readings, extending up to several days":"আৰু টাৰো বা অন্য ৰীডিঙত আগ্ৰহ নথকা, কেইবাদিনলৈকে","Poor concentration":"একাগ্ৰতাৰ অভাৱ","Desire to be silent and retreat into shell":"নীৰৱ হৈ থাকি নিজৰ খোলাৰ ভিতৰলৈ সোমাই যাবলৈ ইচ্ছা","Inability to meditate or do regular sacred rituals":"ধ্যান বা নিয়মীয়া পবিত্ৰ অনুষ্ঠান কৰিব নোৱাৰা",
 " Draw from the 16 court cards only (as for matchmaking)":"কেৱল ১৬খন কোৰ্ট কাৰ্ডৰ পৰা উলিয়াওক (বৰ-কইনা মিলনৰ দৰে)"
 });
+PAT.unshift([/^(.+?) and (.+) \(Tree of Life, Vol II Ch 16\)$/,function(m,t){return t(m[1])+' আৰু '+t(m[2])+' (জীৱনবৃক্ষ, খণ্ড II অধ্যায় ১৬)'}]);
+PAT.unshift([/^(\d+) \(governs the year when the projected year number is (\d+)\)$/,function(m){return m[1]+' (অনুমিত বছৰৰ সংখ্যা '+m[2]+' হ\'লে সেই বছৰ শাসন কৰে)'}]);
 PAT.push([/^(\d+)\. (.{2,100})$/,function(m,t){var b=t(m[2]);return b===m[2]?null:m[1]+'. '+b}]);
 })();
