@@ -5,6 +5,7 @@ function add(o){for(var k in o)P[k]=o[k]}
 var tr=function(s,f){return f(s)};
 
 add({
+"Back to top":"ওপৰলৈ যাওক","Skip to content":"বিষয়বস্তুলৈ যাওক",
 /* chrome */
 "Tarot Reader's Desk":"টাৰো পাঠকৰ ডেস্ক","Sections":"বিভাগ","Theme":"থিম","Switch light or dark theme":"পোহৰ বা আন্ধাৰ থিম সলনি কৰক",
 "Cards":"কাৰ্ড","Spreads":"স্প্ৰেড","Tools":"সঁজুলি","Remedies":"প্ৰতিকাৰ","Guide":"নিৰ্দেশিকা","Books":"কিতাপ","Saved":"সংৰক্ষিত",

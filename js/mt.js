@@ -29,12 +29,13 @@ function call(text){
     .then(function(d){return (d[0]||[]).map(function(x){return x[0]||''}).join('')});
 }
 function translate(core){return Promise.all(chunks(core).map(call)).then(function(a){return a.join(' ')})}
-function apply(n,lead,out,trail){if(n.isConnected)n.nodeValue=lead+out+trail}
+function wait(n,on){var p=n.parentElement;if(p)p.classList.toggle('mt-wait',on)}
+function apply(n,lead,out,trail){wait(n,false);if(n.isConnected)n.nodeValue=lead+out+trail}
 function pump(){
   while(active<4&&queue.length&&fails<3){
     var job=queue.shift();active++;
     (function(j){translate(j.core).then(function(out){fails=0;if(out){putCache(j.core,out);j.nodes.forEach(function(x){apply(x.n,x.lead,out,x.trail)})}})
-      .catch(function(){fails++;j.nodes.forEach(function(x){done.delete(x.n)})})
+      .catch(function(){fails++;j.nodes.forEach(function(x){wait(x.n,false);done.delete(x.n)})})
       .then(function(){delete inflight[j.core];active--;pending-=j.nodes.length;status();pump()})})(job);
   }
 }
@@ -48,7 +49,7 @@ function scan(root){
     done.add(n);
     var hit=getCache(core);
     if(hit!==null){apply(n,m[1],hit,m[3]);continue}
-    var item={n:n,lead:m[1],trail:m[3]};pending++;fresh=true;
+    var item={n:n,lead:m[1],trail:m[3]};pending++;wait(n,true);fresh=true;
     if(inflight[core]){inflight[core].nodes.push(item);continue}
     var job={core:core,nodes:[item]};inflight[core]=job;queue.push(job);
   }

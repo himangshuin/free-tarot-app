@@ -566,13 +566,22 @@ function route(){closeModal();const hsh=location.hash.slice(1);let tab='cards';
   else if(hsh==='saved'){tab='saved';viewSaved()}
   else viewCards();
   setTabs(tab);document.title=T(document.title);chrome()}
-function chrome(){const I=window.I18N;const b=$('#langbtn');if(b){b.textContent=I.lang==='as'?'EN':'অসমীয়া';b.setAttribute('aria-label',I.lang==='as'?'Switch to English':'অসমীয়ালৈ সলনি কৰক');b.title=b.getAttribute('aria-label');b.lang=I.lang==='as'?'en':'as'}
-  const mb=$('#mtbtn');if(mb&&window.TarotMT){mb.hidden=I.lang!=='as';window.TarotMT.onstatus=st=>{mb.textContent=!window.TarotMT.on?'অনুবাদ: অফ':st==='busy'?'অনুবাদ চলি আছে…':st==='error'?'অনুবাদ: সংযোগ নাই':'অনুবাদ: অন'};mb.textContent=window.TarotMT.on?'অনুবাদ: অন':'অনুবাদ: অফ';mb.title='ইংৰাজী কিতাপৰ লিখনীৰ স্বয়ংক্ৰিয় অসমীয়া অনুবাদ';mb.setAttribute('aria-label',mb.title)}
+function chrome(){const I=window.I18N;const b=$('#langbtn');if(b){const sp=b.querySelectorAll('span');if(sp.length===2){sp[0].classList.toggle('on',I.lang==='as');sp[1].classList.toggle('on',I.lang!=='as')}
+  b.setAttribute('aria-label',I.lang==='as'?'Switch to English':'অসমীয়ালৈ সলনি কৰক');b.title=b.getAttribute('aria-label')}
+  const hd=$('.top');if(hd)document.documentElement.style.setProperty('--topH',hd.offsetHeight+'px');const sk=$('.skip');if(sk)sk.textContent=T('Skip to content');
+  const mb=$('#mtbtn');if(mb&&window.TarotMT){mb.hidden=I.lang!=='as';window.TarotMT.onstatus=st=>{document.documentElement.classList.toggle('mt-busy',st==='busy'&&window.TarotMT.on);mb.textContent=!window.TarotMT.on?'অনুবাদ ○':st==='busy'?'অনুবাদ…':st==='error'?'অনুবাদ ✕':'অনুবাদ ✓'};mb.textContent=window.TarotMT.on?'অনুবাদ ✓':'অনুবাদ ○';mb.title='ইংৰাজী কিতাপৰ লিখনীৰ স্বয়ংক্ৰিয় অসমীয়া অনুবাদ';mb.setAttribute('aria-label',mb.title)}
   if(I.lang==='as'&&window.TarotMT)window.TarotMT.start();
   const br=$('#brandtxt');if(br)br.textContent=T("Tarot Reader's Desk");const tb2=$('#themebtn');if(tb2){tb2.setAttribute('aria-label',T('Switch light or dark theme'));tb2.title=T('Theme')}}
 const lb=$('#langbtn');if(lb)lb.addEventListener('click',()=>{const toEn=window.I18N.lang==='as';window.I18N.setLang(toEn?'en':'as');
   if(toEn&&window.TarotMT&&window.TarotMT.stop()){location.reload();return}route()});
 const mbt=$('#mtbtn');if(mbt)mbt.addEventListener('click',()=>window.TarotMT.toggle());
+
+(function(){const up=h('button',{class:'totop',type:'button','aria-label':'Back to top',title:'Back to top',onclick:()=>window.scrollTo({top:0,behavior:'smooth'})},document.createElementNS('http://www.w3.org/2000/svg','svg'));
+  up.firstChild.setAttribute('viewBox','0 0 24 24');up.firstChild.innerHTML='<path d="M6 14l6-6 6 6"/>';document.body.append(up);
+  let tk=0;window.addEventListener('scroll',()=>{if(tk)return;tk=requestAnimationFrame(()=>{tk=0;up.classList.toggle('show',window.scrollY>700)})},{passive:true});
+  window.addEventListener('resize',()=>{const hd=$('.top');if(hd)document.documentElement.style.setProperty('--topH',hd.offsetHeight+'px')});
+  document.addEventListener('keydown',e=>{if(e.key==='/'&&!/INPUT|TEXTAREA|SELECT/.test((document.activeElement||{}).tagName||'')){const q=$('#q')||$('#libq');if(q){e.preventDefault();q.focus()}}});
+})();
 window.addEventListener('hashchange',route);
 const tb=$('#themebtn');tb.addEventListener('click',()=>{const r=document.documentElement;const dark=r.dataset.theme?r.dataset.theme==='dark':matchMedia('(prefers-color-scheme:dark)').matches;r.dataset.theme=dark?'light':'dark';store.set('theme',r.dataset.theme)});
 const th=store.get('theme',null);if(th)document.documentElement.dataset.theme=th;
